@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.frontend.ErrorController">
    <children>
@@ -27,19 +28,24 @@
                                             <tabs>
                                               <Tab style="-fx-background-color: #635179#635179#635179#635179;" text="Terminal">
                                                 <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #362152#362152;" />
+                                                  <AnchorPane fx:id="terminalArea" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #362152#362152;" />
                                                 </content>
                                               </Tab>
                                               <Tab style="-fx-background-color: #635179#635179 #635179#635179;" text="Debug">
                                                 <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #472E68#472E68;" />
+                                                  <AnchorPane fx:id="debugArea" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #472E68#472E68;" />
                                                 </content>
                                               </Tab>
                                             </tabs>
                                           </TabPane>
+                                          <Button fx:id="errorButton" mnemonicParsing="false" onAction="#errorButtonOnAction" style="-fx-background-color: #635179#635179 #635179#635179 #635179#635179 #635179#635179;" text="Error" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="13.0" />
+                                             </font>
+                                          </Button>
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #623B95#623B95;" />
+                                  <AnchorPane fx:id="treeArea" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #623B95#623B95;" />
                                 </items>
                               </SplitPane>
                            </children>
@@ -50,12 +56,12 @@
                                 <tabs>
                                   <Tab style="-fx-background-color: #635179#635179#635179#635179;" text="helloworld.hs">
                                     <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #6E43A7#6E43A7;" />
+                                      <AnchorPane fx:id="codeArea1" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #6E43A7#6E43A7;" />
                                     </content>
                                   </Tab>
                                   <Tab style="-fx-background-color: #635179#635179#635179#635179#635179#635179#635179#635179;" text="shesh.hs">
                                     <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #6E43A7#6E43A7;" />
+                                      <AnchorPane fx:id="codeArea2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #6E43A7#6E43A7;" />
                                     </content>
                                   </Tab>
                                 </tabs>
