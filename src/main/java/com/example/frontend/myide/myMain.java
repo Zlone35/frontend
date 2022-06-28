@@ -1,4 +1,4 @@
-package com.example.frontend;
+package com.example.frontend.myide;
 
 import com.example.frontend.entity.Mandatory;
 import com.example.frontend.entity.Node;

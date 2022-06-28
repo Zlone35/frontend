@@ -1,6 +1,6 @@
 package com.example.frontend.service.implemented;
 
-import com.example.frontend.MyIde;
+import com.example.frontend.myide.MyIde;
 import com.example.frontend.entity.*;
 import com.example.frontend.entity.implemented.*;
 import com.example.frontend.service.NodeService;

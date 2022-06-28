@@ -10,4 +10,6 @@ module com.example.frontend {
 
     opens com.example.frontend to javafx.fxml;
     exports com.example.frontend;
+    exports com.example.frontend.myide;
+    opens com.example.frontend.myide to javafx.fxml;
 }
