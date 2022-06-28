@@ -56,7 +56,7 @@ public class ErrorController {
         treeArea.setStyle("-fx-background-color: #DC143C;");
     }
 
-    Timeline err = new Timeline(new KeyFrame(Duration.seconds(1),
+    Timeline err = new Timeline(new KeyFrame(Duration.millis(500),
             new EventHandler<ActionEvent>() {
                 private int i = 0;
                 @Override
@@ -75,15 +75,15 @@ public class ErrorController {
 
     public void errorButtonOnAction(ActionEvent event)
     {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Compilation error");
-        alert.setHeaderText("Compilation error");
-        alert.setContentText("");
+        Alert alert = new Alert(Alert.AlertType.ERROR,"Compilation error", ButtonType.CLOSE);
+        alert.setTitle("Rapport de compilation");
+        alert.setHeaderText("Erreur de compilation");
+        alert.setContentText("nom de l'erreur");
         err.setCycleCount(Timeline.INDEFINITE);
         err.play();
         errButton = !errButton;
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK)
+        if (result.isPresent() && result.get() == ButtonType.CLOSE)
         {
             err.stop();
             BackToNormalColor();
