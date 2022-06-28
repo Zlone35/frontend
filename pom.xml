@@ -15,19 +15,24 @@
         <versions.lombok>1.18.24</versions.lombok>
         <versions.jgit>6.1.0.202203080745-r</versions.jgit>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.8.1</junit.version>
+        <junit.version>5.8.2</junit.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>18-ea+6</version>
+            <version>18.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>18-ea+6</version>
+            <version>18.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fxmisc.richtext</groupId>
+            <artifactId>richtextfx</artifactId>
+            <version>0.10.9</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -92,6 +97,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>fr.epita.assistants.frontend/fr.epita.assistants.frontend.MainController</mainClass>
+                            <mainClass>com.example.frontend/com.example.frontend.Main</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
