@@ -35,13 +35,13 @@ public class MainController {
     private File loadedFileReference;
     private FileTime lastModifiedTime;
     @FXML
+    private SplitPane rightSplitPane;
+    @FXML
     private Button loadChangesButton;
     @FXML
     private Label statusMessage;
     @FXML
     private TextArea textArea;
-    @FXML
-    private ProgressBar progressBar;
     @FXML
     private AnchorPane terminalArea;
     @FXML
@@ -50,15 +50,24 @@ public class MainController {
     private AnchorPane treeArea;
     @FXML
     private TabPane myFiles;
+    @FXML
+    private AnchorPane anchorMenu;
+    @FXML
+    private MenuBar menuBar;
 
     public static boolean errButton = false;
 
     public void BackToNormalColor()
     {
-        terminalArea.setStyle("-fx-background-color: #362152;");
-        debugArea.setStyle("-fx-background-color: #472E68;");
-        myFiles.setStyle("-fx-background-color:  #6E43A7;");
-        treeArea.setStyle("-fx-background-color:  #623B95;");
+        terminalArea.setStyle("-fx-background-color: #93A007;");
+        debugArea.setStyle("-fx-background-color:  #A3AF17;");
+        myFiles.setStyle("-fx-background-color: #E7E73C#E7E73C;");
+        treeArea.setStyle("-fx-background-color: #D9D029;");
+        for (int i = 0; i < myFiles.getTabs().size();i++)
+        {
+            AnchorPane anchorPane = (AnchorPane) myFiles.getTabs().get(i).getContent();
+            anchorPane.getChildren().get(0).setStyle("-fx-background-color: #E7E73C;");
+        }
     }
 
     public void ErrorColor()
@@ -67,9 +76,14 @@ public class MainController {
         debugArea.setStyle("-fx-background-color: #096A09;");
         myFiles.setStyle("-fx-background-color: #357AB7;");
         treeArea.setStyle("-fx-background-color: #DC143C;");
+        for (int i = 0; i < myFiles.getTabs().size();i++)
+        {
+            AnchorPane anchorPane = (AnchorPane) myFiles.getTabs().get(i).getContent();
+            anchorPane.getChildren().get(0).setStyle("-fx-background-color: #357AB7;");
+        }
     }
 
-    Timeline err = new Timeline(new KeyFrame(Duration.millis(500),
+    Timeline err = new Timeline(new KeyFrame(Duration.millis(150),
             new EventHandler<ActionEvent>() {
                 private int i = 0;
                 @Override
@@ -113,7 +127,6 @@ public class MainController {
     public void openFileButtonAction(ActionEvent event)
     {
         FileChooser fc = new FileChooser();
-        //fc.setInitialDirectory(new File(System.getProperty("user.home")));
 
         File file = fc.showOpenDialog(null);
 
@@ -122,9 +135,9 @@ public class MainController {
             Tab tab = new Tab(file.getName());
             tab.getStyleClass().add("tab-header-background");
             tab.getStyleClass().add("tab-label");
-            tab.setStyle("-fx-background-color: #635179#635179");
+            tab.setStyle("-fx-background-color: #FAFA64");
             AnchorPane anchorPane = new AnchorPane();
-            anchorPane.setStyle("-fx-background-color: #FFFFFF#FFFFFF");
+            anchorPane.setStyle("-fx-background-color: #FFFFFF");
             StyleClassedTextArea styleClassedTextArea = new StyleClassedTextArea();
             anchorPane.getChildren().add(styleClassedTextArea);
             AnchorPane.setBottomAnchor(styleClassedTextArea, 0.0);
@@ -141,13 +154,19 @@ public class MainController {
                 e.printStackTrace();
             }
             styleClassedTextArea.setParagraphGraphicFactory(LineNumberFactory.get(styleClassedTextArea));
-            styleClassedTextArea.setStyle("-fx-background-color: #635179#635179; -fx-border-color: white; -fx-font-family: 'Comic Sans MS';");
+            styleClassedTextArea.setStyle("-fx-background-color:  #E7E73C; -fx-font-family: 'Apple Braille';");
+            styleClassedTextArea.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
-            anchorPane.setStyle("-fx-background-color: #635179#635179");
+            //anchorPane.setStyle("-fx-background-color: #635179#635179");
             tab.setContent(anchorPane);
             myFiles.getTabs().add(tab);
 
             //loadFileToTextArea(file);
         }
+    }
+
+    @FXML private void initialize()
+    {
+        menuBar.setPrefWidth(anchorMenu.getPrefHeight());
     }
 }
