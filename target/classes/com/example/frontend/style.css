@@ -13,7 +13,6 @@
 .tab-label
 {
     -fx-text-fill: black;
-    -fx-font-family: "Apple Braille";
 }
 
 .tab-pane .tab-header-area
@@ -24,28 +23,65 @@
 .style-text-area
 {
     -fx-font-color: red;
-    -fx-font-family: "Apple Braille";
     -fx-control-inner-background: #6E43A7;
 }
 
 .menu .label
 {
     -fx-text-fill: black;
-    -fx-font-family: "Apple Braille";
 }
 
 
+.tree-cell {
+    -fx-background-color: #FFF36D;
+    -fx-text-fill: black;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #FFF36D;
+}
+
+.tree-cell:selected {
+    -fx-background-color: green;
+    -fx-font-weight: bold ;
+}
 
 .label
 {
     -fx-text-fill: white;
-    -fx-font-family: "Apple Braille";
 }
 
 .menu-item .label
 {
     -fx-text-fill: black;
-    -fx-font-family: "Apple Braille";
+}
+
+.menu-item .label:focused{
+    -fx-font-size: 14.0 pt;
+    -fx-background: black ;
+    -fx-text-fill: white;
+}
+
+.menu-bar {
+    -fx-background-color: transparent;
+}
+
+.menu {
+    -fx-label-padding: 3px;
+}
+
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-background:  #A3AF17;
+}
+
+.context-menu {
+    -fx-background-color: #FFF36D;
+    -fx-border-width: 0.2px;
+    -fx-border-color: green;
 }
 
 .split-pane-divider {

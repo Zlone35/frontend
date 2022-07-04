@@ -8,6 +8,9 @@ module com.example.frontend {
     requires lombok;
     requires java.logging;
     requires org.fxmisc.richtext;
+    requires java.desktop;
+    requires org.controlsfx.controls;
+    requires terminalfx;
 
     opens com.example.frontend to javafx.fxml;
     exports com.example.frontend;

@@ -9,10 +9,11 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="626.0" style="-fx-background-color: #000000#000000;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.frontend.MainController">
+<AnchorPane fx:id="root" minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="626.0" style="-fx-background-color: #000000#000000;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.frontend.MainController">
    <children>
       <SplitPane dividerPositions="0.3261" prefHeight="388.0" prefWidth="599.0" style="-fx-background-color: #635179#635179;" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -22,14 +23,14 @@
                     <items>
                       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #A484D2#A484D2;" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TabPane fx:id="tabTopLeft" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #A484D2#A484D2;" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
-                                  <Tab style="-fx-background-color: #FAFA64#FAFA64;" text="Terminal">
+                                  <Tab fx:id="terminalTab" style="-fx-background-color: #FAFA64#FAFA64;" text="Terminal">
                                     <content>
                                       <AnchorPane fx:id="terminalArea" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #93A007#93A007;" />
                                     </content>
                                   </Tab>
-                                  <Tab style="-fx-background-color: #FAFA64#FAFA64;" text="Debug">
+                                  <Tab fx:id="debugTab" style="-fx-background-color: #FAFA64#FAFA64;" text="Debug">
                                     <content>
                                       <AnchorPane fx:id="debugArea" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #A3AF17#A3AF17;" />
                                     </content>
@@ -46,7 +47,10 @@
                               </Button>
                            </children>
                         </AnchorPane>
-                      <AnchorPane fx:id="treeArea" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #D9D029#D9D029;" />
+                      <AnchorPane fx:id="treeArea" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #000000;">
+                           <children>
+                              <TreeView fx:id="Tree" layoutX="-23.0" layoutY="14.0" onContextMenuRequested="#selectItem" onMouseClicked="#selectItem" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #D9D029#D9D029;" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children></AnchorPane>
                     </items>
                   </SplitPane>
                </children>
@@ -66,14 +70,16 @@
                                 <menus>
                                   <Menu mnemonicParsing="false" text="File">
                                        <items>
-                                          <MenuItem fx:id="openFileButton" mnemonicParsing="false" onAction="#openFileButtonAction" text="Ouvrir un fichier" />
-                                           <MenuItem text="Sauvegarder" />
-                                          <MenuItem mnemonicParsing="false" text="Quitter" />
+                                          <MenuItem fx:id="openProject" mnemonicParsing="false" onAction="#openProjectButtonAction" text="Open a project" />
+                                          <MenuItem fx:id="openFileButton" mnemonicParsing="false" onAction="#openFileButtonAction" text="Open a file" />
+                                           <MenuItem text="Save" />
+                                          <MenuItem mnemonicParsing="false" onAction="#QuitAction" text="Quit" />
                                        </items>
                                   </Menu>
                                   <Menu mnemonicParsing="false" text="Edit">
                                        <items>
-                                          <MenuItem mnemonicParsing="false" text="Supprimer" />
+                                          <MenuItem mnemonicParsing="false" onAction="#SetFont" text="Change font size" />
+                                          <MenuItem mnemonicParsing="false" onAction="#deleteCurrentFileButtonAction" text="Delete" />
                                        </items>
                                   </Menu>
                                   <Menu mnemonicParsing="false" text="Help">

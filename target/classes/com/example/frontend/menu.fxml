@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<MenuBar prefWidth="598.0" style="-fx-background-color: #635179#635179;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.frontend.MenuController">
-   <menus>
-      <Menu mnemonicParsing="false" text="Fichier">
-         <items>
-            <MenuItem fx:id="openFileButton" mnemonicParsing="false" onAction="#openFileButtonAction" text="Ouvrir un fichier" />
-            <MenuItem mnemonicParsing="false" text="Quitter" />
-         </items>
-      </Menu>
-      <Menu mnemonicParsing="false" text="Edition">
-         <items>
-            <MenuItem mnemonicParsing="false" text="Supprimer" />
-         </items>
-      </Menu>
-      <Menu mnemonicParsing="false" text="Aide">
-         <items>
-            <MenuItem mnemonicParsing="false" text="En savoir plus" />
-         </items>
-      </Menu>
-   </menus>
-</MenuBar>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #E7E73C#E7E73C #E7E73C#E7E73C;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.frontend.MenuController">
+   <children>
+      <VBox fx:id="vBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="337.0" fitWidth="542.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@logo.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="OpenDirectoryButton" mnemonicParsing="false" onAction="#OpenDirectory" style="-fx-background-color: #4150b7;" text="Ouvrir un projet" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Apple Braille Pinpoint 6 Dot" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
