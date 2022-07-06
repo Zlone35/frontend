@@ -20,12 +20,6 @@
     -fx-padding: 10 0 -1 5;
 }
 
-.style-text-area
-{
-    -fx-font-color: red;
-    -fx-control-inner-background: #6E43A7;
-}
-
 .menu .label
 {
     -fx-text-fill: black;
@@ -48,6 +42,10 @@
 .tree-cell:selected {
     -fx-background-color: green;
     -fx-font-weight: bold ;
+}
+.spinner {
+    -fx-base: purple;
+    -fx-text-fill: white ;
 }
 
 .label

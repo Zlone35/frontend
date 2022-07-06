@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane fx:id="root" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.frontend.ErrorAlertController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #635179#635179 #635179#635179 #635179#635179 #635179#635179 #635179#635179 #635179#635179 #635179#635179 #635179#635179 #635179#635179 #635179#635179 #635179#635179 #635179#635179 #635179#635179 #635179#635179 #635179#635179 #635179#635179;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Compilation Error :   " />
+                  <Text fx:id="reportText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#close" style="-fx-background-color: purple;" text="Close" textFill="WHITE" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

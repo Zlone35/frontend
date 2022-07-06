@@ -23,7 +23,7 @@
                     <items>
                       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <TabPane fx:id="tabTopLeft" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #A484D2#A484D2;" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TabPane fx:id="tabTopLeft" prefHeight="200.0" prefWidth="200.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
                                   <Tab fx:id="terminalTab" style="-fx-background-color: #FAFA64#FAFA64;" text="Terminal">
                                     <content>
@@ -55,11 +55,11 @@
                   </SplitPane>
                </children>
             </AnchorPane>
-            <SplitPane fx:id="rightSplitPane" dividerPositions="0.9273809523809524" style="-fx-background-color: #31E309#31E309;">
+            <SplitPane fx:id="rightSplitPane" dividerPositions="0.5" style="-fx-background-color: #31E309#31E309;">
                <items>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <TabPane fx:id="myFiles" prefHeight="366.0" prefWidth="218.0" style="-fx-background-color: #E7E73C#E7E73C;" stylesheets="@style.css" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TabPane fx:id="myFiles" prefHeight="366.0" prefWidth="218.0" style="-fx-background-color: #E7E73C#E7E73C;" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                 <AnchorPane fx:id="anchorMenu" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="30.0" style="-fx-background-color: #96D406 #96D406;" SplitPane.resizableWithParent="false">
@@ -72,7 +72,7 @@
                                        <items>
                                           <MenuItem fx:id="openProject" mnemonicParsing="false" onAction="#openProjectButtonAction" text="Open a project" />
                                           <MenuItem fx:id="openFileButton" mnemonicParsing="false" onAction="#openFileButtonAction" text="Open a file" />
-                                           <MenuItem text="Save" />
+                                           <MenuItem onAction="#onSave" text="Save" />
                                           <MenuItem mnemonicParsing="false" onAction="#QuitAction" text="Quit" />
                                        </items>
                                   </Menu>
@@ -80,6 +80,7 @@
                                        <items>
                                           <MenuItem mnemonicParsing="false" onAction="#SetFont" text="Change font size" />
                                           <MenuItem mnemonicParsing="false" onAction="#deleteCurrentFileButtonAction" text="Delete" />
+                                          <MenuItem mnemonicParsing="false" onAction="#deleteAll" text="Delete all" />
                                        </items>
                                   </Menu>
                                   <Menu mnemonicParsing="false" text="Help">
@@ -87,6 +88,12 @@
                                           <MenuItem mnemonicParsing="false" text="En savoir plus" />
                                        </items>
                                   </Menu>
+                                    <Menu mnemonicParsing="false" text="Run">
+                                       <items>
+                                          <MenuItem text="Run" />
+                                          <MenuItem mnemonicParsing="false" text="Build" />
+                                       </items>
+                                    </Menu>
                                 </menus>
                               </MenuBar>
                            </children>

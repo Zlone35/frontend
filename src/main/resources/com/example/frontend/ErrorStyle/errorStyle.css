@@ -1,0 +1,8 @@
+.tree-cell {
+        -fx-background-color: red;
+        -fx-text-fill: red;
+}
+
+.tree-cell {
+        -fx-background-color: red;
+}

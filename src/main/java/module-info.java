@@ -10,7 +10,10 @@ module com.example.frontend {
     requires org.fxmisc.richtext;
     requires java.desktop;
     requires org.controlsfx.controls;
-    requires terminalfx;
+    requires jdk.jsobject;
+    requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.annotation;
+    requires javafx.graphics;
 
     opens com.example.frontend to javafx.fxml;
     exports com.example.frontend;

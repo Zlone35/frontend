@@ -1,13 +1,14 @@
 package com.example.frontend;
 
-import com.example.frontend.MainController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class FontSizeController {
@@ -15,6 +16,12 @@ public class FontSizeController {
     private Spinner<Integer> fontSpinner;
     @FXML
     private VBox vBox;
+    @FXML
+    private Text text;
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private Integer currentsize;
 
     private MainController mainController;
 
@@ -23,6 +30,7 @@ public class FontSizeController {
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 42);
         valueFactory.setValue(MainController.fontSize);
         fontSpinner.setValueFactory(valueFactory);
+        currentsize = 13;
         changeVBox();
         fontSpinner.valueProperty().addListener(new ChangeListener<Integer>() {
             @Override
@@ -30,6 +38,17 @@ public class FontSizeController {
                 int size = fontSpinner.getValue();
                 mainController.SetFontSize(size);
                 MainController.fontSize = size;
+                root.setStyle("-fx-font-size: " + size);
+                if (currentsize > size)
+                {
+                    root.setMaxSize(root.getPrefHeight() - 20,root.getPrefWidth() - 20);
+                }
+                else
+                {
+                    root.setMaxSize(root.getPrefHeight() + 20,root.getPrefWidth() + 20);
+                }
+                currentsize = size;
+
             }
         });
     }

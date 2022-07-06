@@ -10,14 +10,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.kodedu.terminalfx:terminalfx:1.0.8" level="project" />
-    <orderEntry type="library" name="Maven: com.kodedu.pty4j:pty4j:0.7.4" level="project" />
-    <orderEntry type="library" name="Maven: net.java.dev.jna:jna:4.1.0" level="project" />
-    <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:4.1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.sparetimelabs:purejavacomm:0.0.17" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.4" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.4" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.4" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:18.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:mac-aarch64:18.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:18.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:mac-aarch64:18.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:18.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:mac-aarch64:18.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:18.0.1" level="project" />
@@ -35,16 +32,17 @@
     <orderEntry type="library" name="Maven: org.eclipse.jgit:org.eclipse.jgit:6.1.0.202203080745-r" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.javaewah:JavaEWAH:1.1.13" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.30" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:${javafx.version}" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.8.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.8.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.2" level="project" />
+    <orderEntry type="library" name="Maven: org.junit.jupiter:junit-jupiter-api:5.8.2" level="project" />
+    <orderEntry type="library" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.junit.platform:junit-platform-commons:1.8.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.2" level="project" />
+    <orderEntry type="library" name="Maven: org.junit.platform:junit-platform-engine:1.8.2" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:2.0.1.Final" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.11.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.2" level="project" />
     <orderEntry type="library" name="Maven: io.github.astrapi69:swing-components:6.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: javax.help:javahelp:2.0.05" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.swinglabs.swingx:swingx-all:1.6.5-1" level="project" />
@@ -112,26 +110,5 @@
     <orderEntry type="library" name="Maven: org.glassfish:javax.json:1.1.4" level="project" />
     <orderEntry type="library" name="Maven: org.java-websocket:Java-WebSocket:1.3.7" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:15.0" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool.subunit:webview:1.3.3" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool.subunit:webview_annotation:1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool:frame_modules:1.2" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool.router:arouter_api:1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool.router:arouter_annotation:1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.android.support:support-v4:28.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool:ui_adapterhelper:1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool:ui_autolayout:1.1" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool:ui_language:1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool:ui_skin_support:1.1" level="project" />
-    <orderEntry type="library" name="Maven: com.android.support:design:28.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool:ui_imageloader:1.1" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool:tool_log:1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool:tool_http:1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.13.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.7" level="project" />
-    <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.9.0" level="project" />
-    <orderEntry type="library" name="Maven: ch.acra:acra-core:5.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.android.support:appcompat-v7:28.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool:tool_http_state:1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.yxt.opensdk.atool:tool_utils:1.0" level="project" />
   </component>
 </module>

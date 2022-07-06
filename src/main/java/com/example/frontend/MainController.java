@@ -1,7 +1,5 @@
 package com.example.frontend;
 
-import com.kodedu.terminalfx.TerminalBuilder;
-import com.kodedu.terminalfx.TerminalTab;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -16,16 +14,17 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.util.Duration;
 import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.StyleClassedTextArea;
-import com.kodedu.terminalfx.config.TerminalConfig;
 import java.io.*;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Stream;
+
+import javafx.scene.control.TabPane;
+import org.fxmisc.richtext.StyledTextArea;
 
 public class MainController {
     private File workingDirectory;
@@ -46,20 +45,16 @@ public class MainController {
     private MenuBar menuBar;
     @FXML
     private TreeView<String> Tree;
-    @FXML
-    private Tab debugTab;
-    @FXML
-    private Tab terminalTab;
-    @FXML
-    private TabPane tabTopLeft;
 
     public static boolean errButton = false;
 
     public static int fontSize;
 
+    private ArrayList<HandlerSaver> handlerSaverArrayList;
+
 
     private long currentTime; //handle double click for arborescence Tree
-    private List<String> allFiles;
+    public static List<String> allFiles;
 
     public void setWorkingDirectory(File dir)
     {
@@ -68,6 +63,8 @@ public class MainController {
 
     public void BackToNormalColor()
     {
+        Tree.getStylesheets().clear();
+        Tree.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         terminalArea.setStyle("-fx-background-color: #93A007;");
         debugArea.setStyle("-fx-background-color:  #A3AF17;");
         myFiles.setStyle("-fx-background-color: #E7E73C#E7E73C;");
@@ -81,10 +78,12 @@ public class MainController {
 
     public void ErrorColor()
     {
-        terminalArea.setStyle("-fx-background-color: #096A09;");
-        debugArea.setStyle("-fx-background-color: #096A09;");
-        myFiles.setStyle("-fx-background-color: #357AB7;");
-        treeArea.setStyle("-fx-background-color: #DC143C;");
+        Tree.getStylesheets().clear();
+        Tree.getStylesheets().add(getClass().getResource("ErrorStyle/errorStyle.css").toExternalForm());
+        terminalArea.setStyle("-fx-background-color: green;");
+        debugArea.setStyle("-fx-background-color: green;");
+        myFiles.setStyle("-fx-background-color: blue;");
+        treeArea.setStyle("-fx-background-color: red;");
         for (int i = 0; i < myFiles.getTabs().size();i++)
         {
             AnchorPane anchorPane = (AnchorPane) myFiles.getTabs().get(i).getContent();
@@ -108,22 +107,43 @@ public class MainController {
                 }
             }));
 
+    Timeline autoSave = new Timeline(new KeyFrame(Duration.millis(2000),
+            new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    for (int i = 0; i < myFiles.getTabs().size();i++) {
+                        Tab tab = myFiles.getTabs().get(i);
+                        var shsh = (AnchorPane) tab.getContent();
+                        var styleClasedTextArea = (StyleClassedTextArea) shsh.getChildren().get(0);
+                        TextFile textFile = new TextFile(handlerSaverArrayList.get(i).textFile.getFile(), Arrays.asList(styleClasedTextArea.getText().split("\n")));
+                        try {
+                            handlerSaverArrayList.get(i).editorModel.save(textFile);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }));
 
-    public void errorButtonOnAction(ActionEvent event)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR,"Compilation error", ButtonType.CLOSE);
-        alert.setTitle("Rapport de compilation");
-        alert.setHeaderText("Erreur de compilation");
-        alert.setContentText("nom de l'erreur");
+
+    public void errorButtonOnAction(ActionEvent event) throws IOException {
         err.setCycleCount(Timeline.INDEFINITE);
         err.play();
-        errButton = !errButton;
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.CLOSE)
-        {
-            err.stop();
-            BackToNormalColor();
-        }
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("error-alert.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        ErrorAlertController controller = (ErrorAlertController) fxmlLoader.getController();
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Compilation report");
+        stage.setScene(new Scene(root1));
+        stage.show();
+        controller.setFontSize(fontSize);
+        controller.setMain(this);
+    }
+
+    public void stopError()
+    {
+        err.stop();
     }
 
     /*
@@ -140,6 +160,7 @@ public class MainController {
         fc.getExtensionFilters().add(extFilter);
         File file = fc.showOpenDialog(null);
         CreateFile(file);
+        autoSave.play();
     }
 
     public void openProjectButtonAction(ActionEvent event) throws IOException {
@@ -160,44 +181,81 @@ public class MainController {
         {
             return;
         }
+        allFiles.remove(currentFileIndex);
         myFiles.getTabs().remove(currentFileIndex);
+    }
+
+    public void deleteAll(ActionEvent event)
+    {
+        allFiles.clear();
+        myFiles.getTabs().clear();
+    }
+
+    public void onSave() throws IOException {
+
+        Integer currentIndex = myFiles.getSelectionModel().getSelectedIndex();
+        if (currentIndex == -1)
+        {
+            return;
+        }
+        var shsh = (AnchorPane) myFiles.getTabs().get(currentIndex).getContent();
+        var styleClasedTextArea = (StyleClassedTextArea)shsh.getChildren().get(0);
+        TextFile textFile = new TextFile(handlerSaverArrayList.get(currentIndex).textFile.getFile(), Arrays.asList(styleClasedTextArea.getText().split("\n")));
+        handlerSaverArrayList.get(currentIndex).editorModel.save(textFile);
     }
 
     public void CreateFile(File file)
     {
+        if (file == null || file.isDirectory())
+        {
+            return;
+        }
+        if (allFiles.contains(file.getAbsolutePath()))
+        {
+            myFiles.getSelectionModel().select(allFiles.indexOf(file.getAbsolutePath()));
+            return;
+        }
+
         if (file != null && !allFiles.contains(file.getAbsolutePath()))
         {
-            allFiles.add(file.getAbsolutePath());
-            Tab tab = new Tab(file.getName());
-            tab.getStyleClass().add("tab-header-background");
-            tab.getStyleClass().add("tab-label");
-            tab.setStyle("-fx-background-color: #FAFA64");
+            EditorModel editorModel = new EditorModel();
+            IOResult<TextFile> io = editorModel.load(file.toPath());
+            HandlerSaver handlerSaver = new HandlerSaver(editorModel);
+
+            StyleClassedTextArea styleClassedTextArea = new StyleClassedTextArea();
             AnchorPane anchorPane = new AnchorPane();
             anchorPane.setStyle("-fx-background-color: #FFFFFF");
-            StyleClassedTextArea styleClassedTextArea = new StyleClassedTextArea();
             anchorPane.getChildren().add(styleClassedTextArea);
             AnchorPane.setBottomAnchor(styleClassedTextArea, 0.0);
             AnchorPane.setLeftAnchor(styleClassedTextArea, 0.0);
             AnchorPane.setRightAnchor(styleClassedTextArea, 0.0);
             AnchorPane.setTopAnchor(styleClassedTextArea, 0.0);
-            try {
-                Scanner scanner = new Scanner(file);
-                while(scanner.hasNextLine())
-                {
-                    styleClassedTextArea.appendText(scanner.nextLine() + "\n");
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            TextFile currentTextFile;
+            if (io.isOk() && io.hasData())
+            {
+                currentTextFile = io.getData();
+                currentTextFile.getContent().forEach(line -> styleClassedTextArea.appendText(line + "\n"));
             }
+            else
+            {
+                return;
+            }
+            handlerSaver.setTextFile(currentTextFile);
+            handlerSaverArrayList.add(handlerSaver);
+            allFiles.add(file.getAbsolutePath());
+            Tab tab = new Tab(file.getName());
+            tab.getStyleClass().add("tab-header-background");
+            tab.getStyleClass().add("tab-label");
+            tab.setStyle("-fx-background-color: #FAFA64");
             styleClassedTextArea.setParagraphGraphicFactory(LineNumberFactory.get(styleClassedTextArea));
             styleClassedTextArea.setStyle("-fx-background-color:  #E7E73C; -fx-font-family: 'Apple Braille';");
             styleClassedTextArea.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
             tab.setContent(anchorPane);
             myFiles.getTabs().add(tab);
             myFiles.getSelectionModel().select(tab);
         }
     }
+
 
     @FXML private void initialize() throws IOException {
         menuBar.setPrefWidth(anchorMenu.getPrefHeight());
@@ -205,7 +263,10 @@ public class MainController {
         support.addSupport(myFiles);
         allFiles = new ArrayList<String>();
         fontSize = 13;
-        createTerminal();
+        handlerSaverArrayList = new ArrayList<>();
+        autoSave.setCycleCount(Timeline.INDEFINITE);
+        autoSave.play();
+        //createTerminal();
     }
 
     public void makeMyTree() throws IOException {
@@ -274,17 +335,13 @@ public class MainController {
                     pathToFile += pathArray.get(i);
                 }
                 File myFile = new File(pathToFile);
-                if (myFile.isFile())
-                {
-                    CreateFile(myFile);
-                }
+                CreateFile(myFile);
             }
 
         }
     }
     public void SetFontSize(Integer size)
     {
-
         root.setStyle("-fx-font-size: " + size);
     }
 
@@ -295,7 +352,8 @@ public class MainController {
     }
 
     @FXML
-    public void SetFont(ActionEvent event) throws IOException {
+    public void SetFont(ActionEvent event) throws IOException
+    {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("font-size.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
@@ -308,9 +366,14 @@ public class MainController {
         stage.show();
         stage.setResizable(false);
     }
-
-    public void createTerminal()
-    {
-
-    }
+    /*
+    public void createTerminal() {
+        String css = getClass().getResource("style.css").toExternalForm();
+        myFiles.getStylesheets().add(css);
+        TerminalConfig defaultConfig = new TerminalConfig();
+        TerminalBuilder terminalBuilder = new TerminalBuilder(defaultConfig);
+        TerminalTab terminal = terminalBuilder.newTerminal();
+        terminal.getOnSelectionChanged();
+        myFiles.getTabs().add(terminal);
+    }*/
 }
