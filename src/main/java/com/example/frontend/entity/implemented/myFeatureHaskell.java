@@ -31,6 +31,7 @@ public class myFeatureHaskell extends myFeature {
                 var process = processBuilder.start();
                 process.waitFor();
                 var out = new StringBuilder();
+                var err = new StringBuilder();
                 try (BufferedReader input =
                              new BufferedReader(new
                                      InputStreamReader(process.getInputStream()))) {
@@ -39,10 +40,18 @@ public class myFeatureHaskell extends myFeature {
                         out.append(line).append("\n");
                     }
                 }
+                try (BufferedReader inputerr =
+                             new BufferedReader(new
+                                     InputStreamReader(process.getErrorStream()))) {
+                    String line;
+                    while ((line = inputerr.readLine()) != null) {
+                        err.append(line).append("\n");
+                    }
+                }
                 if (process.exitValue() != 0)
                 {
                     var res = new myExecutionReport(false);
-                    res.setOut_(out.toString());
+                    res.setOut_(err.toString());
                     return res;
 
                 }
