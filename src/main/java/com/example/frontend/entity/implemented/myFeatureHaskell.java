@@ -40,9 +40,13 @@ public class myFeatureHaskell extends myFeature {
                     }
                 }
                 if (process.exitValue() != 0)
-                    return new myExecutionReport(false);
+                {
+                    var res = new myExecutionReport(false);
+                    res.setOut_(out.toString());
+                    return res;
+
+                }
                 var report = new myExecutionReport(true);
-                report.setOut_(out.toString());
                 return report;
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
@@ -68,7 +72,12 @@ public class myFeatureHaskell extends myFeature {
                     }
                 }
                 if (process.exitValue() != 0)
-                    return new myExecutionReport(false);
+                {
+                    var res = new myExecutionReport(false);
+                    res.setOut_(out.toString());
+                    return res;
+
+                }
                 var report = new myExecutionReport(true);
                 report.setOut_(out.toString());
                 return report;
