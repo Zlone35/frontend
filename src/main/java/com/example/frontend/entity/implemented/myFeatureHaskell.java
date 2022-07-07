@@ -47,6 +47,7 @@ public class myFeatureHaskell extends myFeature {
 
                 }
                 var report = new myExecutionReport(true);
+                report.setOut_(out.toString());
                 return report;
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
