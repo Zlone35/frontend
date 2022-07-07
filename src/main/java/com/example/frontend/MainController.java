@@ -400,8 +400,10 @@ public class MainController {
         while(matcher.find()) {
             String styleClass =
                     matcher.group("KEYWORD") != null ? "keyword" :
-                            matcher.group("PAREN") != null ? "paren" :
-                                                    matcher.group("COLON") != null ? "semicolon" :
+                            matcher.group("TYPES") != null ? "types" :
+                                    matcher.group("PAREN") != null ? "paren" :
+                                            matcher.group("DIGIT") != null ? "digit" :
+                                                    matcher.group("COLON") != null ? "colon" :
                                                             matcher.group("STRING") != null ? "string" :
                                                                     matcher.group("COMMENT") != null ? "comment" :
                                                                             null; /* never happens */ assert styleClass != null;
@@ -425,18 +427,28 @@ public class MainController {
             "where"
     };
 
+    private static final String[] TYPES = new String[] {
+        "Bool", "String", "Char", "Int","Integer","Float","Double"
+    };
+
     private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
+    private static final String TYPES_PATTERN = "\\b(" + String.join("|", TYPES) + ")\\b";
     private static final String PAREN_PATTERN = "\\(|\\)";
-    private static final String COLON_PATTERN = "\\,";
-    private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
+    private static final String COLON_PATTERN = "\\b,|->|=>|=|::| \\b";
+
+    private static final String DIGIT_PATTERN = "[0-9]";
+    private static final String STRING_PATTERN = "\'([^\"\\\\]|\\\\.)*\'";
     private static final String COMMENT_PATTERN = "--[^\n]*";   // for visible paragraph processing (line by line)
 
     private static final Pattern PATTERN = Pattern.compile(
             "(?<KEYWORD>" + KEYWORD_PATTERN + ")"
-                    + "|(?<PAREN>" + PAREN_PATTERN + ")"
+                    + "|(?<TYPES>" + TYPES_PATTERN + ")"
                     + "|(?<COLON>" + COLON_PATTERN + ")"
+                    + "|(?<PAREN>" + PAREN_PATTERN + ")"
                     + "|(?<STRING>" + STRING_PATTERN + ")"
                     + "|(?<COMMENT>" + COMMENT_PATTERN + ")"
+                    + "|(?<DIGIT>" + DIGIT_PATTERN + ")"
+
     );
 }
 

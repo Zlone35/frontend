@@ -85,11 +85,17 @@
 .split-pane-divider {
     -fx-padding: 0 0.05em 0 0.05em;
 }
+
 .keyword {    -fx-fill: purple;
     -fx-font-weight: bold;
 }
-.comment {-fx-fill: blue;}
+.comment {-fx-fill: darkgrey;}
 
 .paren {-fx-fill: red}
 
-.colon {-fx-text-fill: orange}
+.colon {-fx-fill: blue;
+-fx-font-weight: bold}
+
+.types {-fx-fill: green}
+
+.digit {-fx-fill: orange}

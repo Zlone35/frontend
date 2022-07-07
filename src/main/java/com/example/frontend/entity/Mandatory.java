@@ -111,4 +111,22 @@ public enum Mandatory {
             TREE
         }
     }
+
+
+    public enum Haskell implements Feature.Type {
+        /**
+         * build the project with ghc
+         */
+        BUILD,
+        /**
+         * build and run
+         */
+        BUILD_AND_RUN,
+
+        /**
+         * just run if already built
+         */
+        RUN
+
+    }
 }
