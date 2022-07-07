@@ -39,6 +39,8 @@ public class myFeatureHaskell extends myFeature {
                         out.append(line).append("\n");
                     }
                 }
+                if (process.exitValue() != 0)
+                    return new myExecutionReport(false);
                 var report = new myExecutionReport(true);
                 report.setOut_(out.toString());
                 return report;
@@ -65,6 +67,8 @@ public class myFeatureHaskell extends myFeature {
                         out.append(line).append("\n");
                     }
                 }
+                if (process.exitValue() != 0)
+                    return new myExecutionReport(false);
                 var report = new myExecutionReport(true);
                 report.setOut_(out.toString());
                 return report;
