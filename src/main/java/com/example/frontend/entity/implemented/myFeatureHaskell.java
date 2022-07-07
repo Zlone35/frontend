@@ -5,9 +5,7 @@ import com.example.frontend.entity.Project;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static com.example.frontend.entity.Mandatory.Haskell.BUILD;
-import static com.example.frontend.entity.Mandatory.Haskell.RUN;
-
+import static com.example.frontend.entity.Mandatory.Features.Haskell.*;
 
 public class myFeatureHaskell extends myFeature {
 

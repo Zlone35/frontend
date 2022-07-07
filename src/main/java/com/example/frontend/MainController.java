@@ -1,5 +1,11 @@
 package com.example.frontend;
 
+import com.example.frontend.entity.Mandatory;
+import com.example.frontend.entity.Project;
+import com.example.frontend.entity.implemented.myFeatureHaskell;
+import com.example.frontend.myide.MyIde;
+import com.example.frontend.service.ProjectService;
+import com.example.frontend.service.implemented.myProjectService;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -20,6 +26,7 @@ import org.fxmisc.richtext.GenericStyledArea;
 import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.StyleClassedTextArea;
 import java.io.*;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.List;
 import java.util.function.Consumer;
@@ -34,6 +41,8 @@ import org.fxmisc.richtext.model.Paragraph;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.reactfx.collection.ListModification;
+
+import static com.example.frontend.entity.Mandatory.Features.Haskell.BUILD;
 
 public class MainController {
     private File workingDirectory;
@@ -64,9 +73,24 @@ public class MainController {
     public static List<String> allFiles;
     public static ArrayList<HandlerSaver> handlerSaverArrayList;
 
+    private ProjectService myProjectService;
+    private Project myProject;
+
+
+    public void Build(ActionEvent event)
+    {
+        int index = myFiles.getSelectionModel().getSelectedIndex();
+        myFeatureHaskell myFeatureHaskell = new myFeatureHaskell(BUILD);
+        var report = myFeatureHaskell.execute(myProject, allFiles.get(index));
+        System.out.println(report.isSuccess());
+
+    }
+
     public void setWorkingDirectory(File dir)
     {
         this.workingDirectory = dir;
+        myProjectService = MyIde.init(null);
+        myProject = myProjectService.load(Path.of(this.workingDirectory.getAbsolutePath()));
     }
 
     public void BackToNormalColor()

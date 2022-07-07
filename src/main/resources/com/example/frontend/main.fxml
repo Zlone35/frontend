@@ -12,7 +12,6 @@
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import org.fxmisc.richtext.StyleClassedTextArea?>
 
 <AnchorPane fx:id="root" minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="626.0" style="-fx-background-color: #000000#000000;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.frontend.MainController">
    <children>
@@ -75,13 +74,13 @@
                                           <MenuItem fx:id="openFileButton" mnemonicParsing="false" onAction="#openFileButtonAction" text="Open a file" />
                                            <MenuItem onAction="#onSave" text="Save" />
                                           <MenuItem mnemonicParsing="false" onAction="#QuitAction" text="Quit" />
+                                          <MenuItem mnemonicParsing="false" onAction="#deleteCurrentFileButtonAction" text="Delete" />
+                                          <MenuItem mnemonicParsing="false" onAction="#deleteAll" text="Delete all" />
                                        </items>
                                   </Menu>
                                   <Menu mnemonicParsing="false" text="Edit">
                                        <items>
                                           <MenuItem mnemonicParsing="false" onAction="#SetFont" text="Change font size" />
-                                          <MenuItem mnemonicParsing="false" onAction="#deleteCurrentFileButtonAction" text="Delete" />
-                                          <MenuItem mnemonicParsing="false" onAction="#deleteAll" text="Delete all" />
                                        </items>
                                   </Menu>
                                   <Menu mnemonicParsing="false" text="Help">
@@ -92,7 +91,7 @@
                                     <Menu mnemonicParsing="false" text="Run">
                                        <items>
                                           <MenuItem text="Run" />
-                                          <MenuItem mnemonicParsing="false" text="Build" />
+                                          <MenuItem mnemonicParsing="false" onAction="#Build" text="Build" />
                                        </items>
                                     </Menu>
                                 </menus>
