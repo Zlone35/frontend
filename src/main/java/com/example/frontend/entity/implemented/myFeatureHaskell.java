@@ -2,7 +2,9 @@ package com.example.frontend.entity.implemented;
 
 import com.example.frontend.entity.Project;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 import static com.example.frontend.entity.Mandatory.Features.Haskell.*;
@@ -28,23 +30,46 @@ public class myFeatureHaskell extends myFeature {
             try {
                 var process = processBuilder.start();
                 process.waitFor();
-                var out = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+                var out = new StringBuilder();
+                try (BufferedReader input =
+                             new BufferedReader(new
+                                     InputStreamReader(process.getInputStream()))) {
+                    String line;
+                    while ((line = input.readLine()) != null) {
+                        out.append(line).append("\n");
+                    }
+                }
                 var report = new myExecutionReport(true);
-                report.setOut_(out);
+                report.setOut_(out.toString());
                 return report;
-            } catch (Exception e) {
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
                 return new myExecutionReport(false);
-
             }
+
+
+
         } else if (RUN.equals(this.featureType_)) {
+
+                ProcessBuilder p = new ProcessBuilder("sh", "-c" , "./a.out");
+
             try {
-                Process p = new ProcessBuilder("sh", "-c" , "./a.out").start();
-                p.waitFor();
-                var out = new String(p.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+                var process = p.start();
+                process.waitFor();
+                var out = new StringBuilder();
+                try (BufferedReader input =
+                             new BufferedReader(new
+                                     InputStreamReader(process.getInputStream()))) {
+                    String line;
+                    while ((line = input.readLine()) != null) {
+                        out.append(line).append("\n");
+                    }
+                }
                 var report = new myExecutionReport(true);
-                report.setOut_(out);
+                report.setOut_(out.toString());
                 return report;
-            } catch (Exception e) {
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
                 return new myExecutionReport(false);
             }
         }
