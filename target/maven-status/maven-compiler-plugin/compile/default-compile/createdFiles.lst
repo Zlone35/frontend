@@ -1,5 +1,6 @@
 com/example/frontend/MainController.class
 com/example/frontend/IOResult.class
+com/example/frontend/VisibleParagraphStyler.class
 com/example/frontend/entity/Feature.class
 com/example/frontend/entity/Mandatory$Features$Any.class
 com/example/frontend/service/implemented/myProjectService.class

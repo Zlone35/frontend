@@ -9,11 +9,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<<<<<<< Updated upstream
 <?import javafx.scene.control.TreeView?>
-=======
-<?import javafx.scene.control.TextField?>
->>>>>>> Stashed changes
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import org.fxmisc.richtext.StyleClassedTextArea?>
@@ -32,15 +28,7 @@
                                 <tabs>
                                   <Tab fx:id="terminalTab" style="-fx-background-color: #FAFA64#FAFA64;" text="Terminal">
                                     <content>
-<<<<<<< Updated upstream
                                       <AnchorPane fx:id="terminalArea" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #93A007#93A007;" />
-=======
-                                      <AnchorPane fx:id="codeArea1" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #6E43A7#6E43A7;">
-                                             <children>
-                                                <TextField fx:id="textArea" layoutX="65.0" layoutY="70.0" style="-fx-background-color: #6E43A7#6E43A7 #6E43A7#6E43A7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                <StyleClassedTextArea fx:id="codeArea" prefHeight="340.0" prefWidth="390.0" />
-                                             </children></AnchorPane>
->>>>>>> Stashed changes
                                     </content>
                                   </Tab>
                                   <Tab fx:id="debugTab" style="-fx-background-color: #FAFA64#FAFA64;" text="Debug">

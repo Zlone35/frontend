@@ -59,11 +59,10 @@ public class MainController {
 
     public static int fontSize;
 
-    private ArrayList<HandlerSaver> handlerSaverArrayList;
-
 
     private long currentTime; //handle double click for arborescence Tree
     public static List<String> allFiles;
+    public static ArrayList<HandlerSaver> handlerSaverArrayList;
 
     public void setWorkingDirectory(File dir)
     {

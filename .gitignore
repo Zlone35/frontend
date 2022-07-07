@@ -1,5 +1,2 @@
-.idea/*
-
-target/*
-
-DS.store
+import Distribution.Simple
+main = defaultMain

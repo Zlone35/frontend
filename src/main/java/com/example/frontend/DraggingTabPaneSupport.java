@@ -88,10 +88,12 @@ public class DraggingTabPaneSupport {
                     currentDraggingTab != null &&
                     currentDraggingTab.getGraphic() != graphic) {
 
-                System.out.println(MainController.allFiles);
                 int index = tab.getTabPane().getTabs().indexOf(tab);
                 int currentIndex = tab.getTabPane().getTabs().indexOf(currentDraggingTab);
                 String currentString = MainController.allFiles.get(currentIndex);
+                HandlerSaver currentSaver = MainController.handlerSaverArrayList.get(currentIndex);
+                MainController.handlerSaverArrayList.set(currentIndex, MainController.handlerSaverArrayList.get(index));
+                MainController.handlerSaverArrayList.set(index, currentSaver);
                 MainController.allFiles.set(currentIndex, MainController.allFiles.get(index));
                 MainController.allFiles.set(index, currentString);
                 currentDraggingTab.getTabPane().getTabs().remove(currentDraggingTab);
