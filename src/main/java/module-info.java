@@ -14,6 +14,7 @@ module com.example.frontend {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.annotation;
     requires javafx.graphics;
+    requires reactfx;
 
     opens com.example.frontend to javafx.fxml;
     exports com.example.frontend;

@@ -16,15 +16,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
 import javafx.util.Duration;
+import org.fxmisc.richtext.GenericStyledArea;
 import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.StyleClassedTextArea;
 import java.io.*;
 import java.util.*;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import javafx.scene.control.TabPane;
 import org.fxmisc.richtext.StyledTextArea;
+import org.fxmisc.richtext.model.Paragraph;
+import org.fxmisc.richtext.model.StyleSpans;
+import org.fxmisc.richtext.model.StyleSpansBuilder;
+import org.reactfx.collection.ListModification;
 
 public class MainController {
     private File workingDirectory;
@@ -247,6 +256,12 @@ public class MainController {
             tab.getStyleClass().add("tab-header-background");
             tab.getStyleClass().add("tab-label");
             tab.setStyle("-fx-background-color: #FAFA64");
+
+            // Travail sur le syntax
+            styleClassedTextArea.getVisibleParagraphs().addModificationObserver
+                    (
+                            new VisibleParagraphStyler<>( styleClassedTextArea, this::computeHighlighting )
+                    );
             styleClassedTextArea.setParagraphGraphicFactory(LineNumberFactory.get(styleClassedTextArea));
             styleClassedTextArea.setStyle("-fx-background-color:  #E7E73C; -fx-font-family: 'Apple Braille';");
             styleClassedTextArea.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
@@ -376,4 +391,82 @@ public class MainController {
         terminal.getOnSelectionChanged();
         myFiles.getTabs().add(terminal);
     }*/
+
+    private StyleSpans<Collection<String>> computeHighlighting(String text) {
+        Matcher matcher = PATTERN.matcher(text);
+        int lastKwEnd = 0;
+        StyleSpansBuilder<Collection<String>> spansBuilder
+                = new StyleSpansBuilder<>();
+        while(matcher.find()) {
+            String styleClass =
+                    matcher.group("KEYWORD") != null ? "keyword" :
+                            matcher.group("PAREN") != null ? "paren" :
+                                                    matcher.group("COLON") != null ? "semicolon" :
+                                                            matcher.group("STRING") != null ? "string" :
+                                                                    matcher.group("COMMENT") != null ? "comment" :
+                                                                            null; /* never happens */ assert styleClass != null;
+            spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
+            spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
+            lastKwEnd = matcher.end();
+        }
+        spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
+        return spansBuilder.create();
+    }
+
+    private static final String[] KEYWORDS = new String[] {
+            "as","case, of","class",
+            "data","data family","data instance",
+            "default","deriving","deriving instance",
+            "do","forall","foreign","hiding","if",
+            "then","else","import","infix","infixl",
+            "infixr", "instance", "let", "in",
+            "mdo", "module","newtype","proc",
+            "qualified","rec","type","type family","type instance",
+            "where"
+    };
+
+    private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
+    private static final String PAREN_PATTERN = "\\(|\\)";
+    private static final String COLON_PATTERN = "\\,";
+    private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
+    private static final String COMMENT_PATTERN = "--[^\n]*";   // for visible paragraph processing (line by line)
+
+    private static final Pattern PATTERN = Pattern.compile(
+            "(?<KEYWORD>" + KEYWORD_PATTERN + ")"
+                    + "|(?<PAREN>" + PAREN_PATTERN + ")"
+                    + "|(?<COLON>" + COLON_PATTERN + ")"
+                    + "|(?<STRING>" + STRING_PATTERN + ")"
+                    + "|(?<COMMENT>" + COMMENT_PATTERN + ")"
+    );
 }
+
+class VisibleParagraphStyler<PS, SEG, S> implements Consumer<ListModification<? extends Paragraph<PS, SEG, S>>>
+{
+    private final GenericStyledArea<PS, SEG, S> area;
+    private final Function<String,StyleSpans<S>> computeStyles;
+    private int prevParagraph, prevTextLength;
+
+    public VisibleParagraphStyler( GenericStyledArea<PS, SEG, S> area, Function<String,StyleSpans<S>> computeStyles )
+    {
+        this.computeStyles = computeStyles;
+        this.area = area;
+    }
+
+    public void accept( ListModification<? extends Paragraph<PS, SEG, S>> lm )
+    {
+        if ( lm.getAddedSize() > 0 )
+        {
+            int paragraph = Math.min( area.firstVisibleParToAllParIndex() + lm.getFrom(), area.getParagraphs().size()-1 );
+            String text = area.getText( paragraph, 0, paragraph, area.getParagraphLength( paragraph ) );
+
+            if ( paragraph != prevParagraph || text.length() != prevTextLength )
+            {
+                int startPos = area.getAbsolutePosition( paragraph, 0 );
+                Platform.runLater( () -> area.setStyleSpans( startPos, computeStyles.apply( text ) ) );
+                prevTextLength = text.length();
+                prevParagraph = paragraph;
+            }
+        }
+    }
+}
+
